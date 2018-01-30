@@ -1,10 +1,6 @@
 #!/usr/bin/python
 import boto3
 from datetime import datetime
-from datetime import timedelta
-from time import gmtime, strftime
-import os
-import pprint
 from bson import json_util
 import json
 
@@ -66,7 +62,7 @@ class awsrdsinventory():
          inventory=json.loads(json.dumps(self.inventory,default=json_util.default))
          for i in inventory:
               print "============================"
-              pprint.pprint(i)
+              print(i)
 
 
 r=awsrdsinventory()
