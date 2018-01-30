@@ -1,13 +1,17 @@
 #!/usr/bin/python
 import boto3
 from datetime import datetime
-from datetime import timedelta
 from bson import json_util
 import json
 
 
 class awsec2inventory():
+'''
+   Class include modules to get inventory of EC2 instance for an aws ccount
+   Script can be executed from ec2 or lambda with required role access
+'''
      def __init__(self):
+         ## Define regions, I am using us-east-1 as sample
          self.regions=["us-east-1"]
          self.inventory=[]
          self.acctid=boto3.client('sts').get_caller_identity().get('Account')
@@ -23,7 +27,6 @@ class awsec2inventory():
      def updateec2json(self,inst,resid):
          output={}
          output['ReservationId']=resid
-         #print inst
          output["AccountId"]=self.acctid
          output['Platform']=self.instancekey(inst,'Platform')
          output['PublicIpAddress']=self.instancekey(inst,'PublicIpAddress')
@@ -67,5 +70,6 @@ class awsec2inventory():
               print "============================"
               print(i)
 
+## Sample execution
 a=awsec2inventory()
 a.getinstanceinfo()
